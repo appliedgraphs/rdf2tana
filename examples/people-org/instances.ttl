@@ -1,0 +1,127 @@
+# SHACL Shapes Definition
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ex: <http://example.org/> .
+@prefix tana: <http://tana.inc/ns#> .
+
+
+# Instance Data Graph
+# People
+ex:person1 a schema:Person ;
+    schema:name "Jane Doe" ;
+    schema:givenName "Jane" ;
+    schema:familyName "Doe" ;
+    schema:email "mailto:jane.doe@example.com" ;
+    schema:birthDate "1985-07-15"^^xsd:date ;
+    schema:affiliation ex:org1 ;
+    schema:worksFor ex:org1 ;
+    schema:identifier "PERSON-001" ;
+    ex:mainCreativeWork ex:work1 .
+
+ex:person2 a schema:Person ;
+    schema:name "John Smith" ;
+    schema:givenName "John" ;
+    schema:familyName "Smith" ;
+    schema:email "mailto:john.smith@example.com" ;
+    schema:birthDate "1990-03-22"^^xsd:date ;
+    schema:affiliation ex:org2 ;
+    schema:worksFor ex:org2 ;
+    schema:identifier "PERSON-002" ;
+    ex:mainCreativeWork ex:work2 .
+
+ex:person3 a schema:Person ;
+    schema:name "Alice Johnson" ;
+    schema:givenName "Alice" ;
+    schema:familyName "Johnson" ;
+    schema:email "mailto:alice.johnson@example.com" ;
+    schema:birthDate "1978-11-30"^^xsd:date ;
+    schema:affiliation ex:org1, ex:org3 ;
+    schema:worksFor ex:org3 ;
+    schema:identifier "PERSON-003" .
+
+# Organizations
+ex:org1 a schema:Organization ;
+    schema:name "Acme Corporation" ;
+    schema:description "A fictional corporation that manufactures everything" ;
+    schema:url "https://acme.example.com"^^xsd:anyURI ;
+    schema:foundingDate "1945-05-01"^^xsd:date ;
+    schema:location ex:address1 ;
+    schema:employee ex:person1 ;
+    schema:identifier "ORG-001" .
+
+ex:org2 a schema:Organization ;
+    schema:name "Tech Innovations" ;
+    schema:description "A cutting-edge technology research organization" ;
+    schema:url "https://tech-innovations.example.com"^^xsd:anyURI ;
+    schema:foundingDate "2010-01-15"^^xsd:date ;
+    schema:location ex:address2 ;
+    schema:employee ex:person2 ;
+    schema:funder ex:org1 ;
+    schema:identifier "ORG-002" .
+
+ex:org3 a schema:Organization ;
+    schema:name "Global Publishing" ;
+    schema:description "An international publishing company" ;
+    schema:url "https://globalpub.example.com"^^xsd:anyURI ;
+    schema:foundingDate "1985-09-12"^^xsd:date ;
+    schema:location ex:address3 ;
+    schema:employee ex:person3 ;
+    schema:identifier "ORG-003" .
+
+# Addresses
+ex:address1 a schema:PostalAddress ;
+    schema:streetAddress "123 Main St" ;
+    schema:addressLocality "Metropolis" ;
+    schema:addressRegion "NY" ;
+    schema:postalCode "10001" ;
+    schema:addressCountry "USA" .
+
+ex:address2 a schema:PostalAddress ;
+    schema:streetAddress "456 Tech Avenue" ;
+    schema:addressLocality "Silicon Valley" ;
+    schema:addressRegion "CA" ;
+    schema:postalCode "94043" ;
+    schema:addressCountry "USA" .
+
+ex:address3 a schema:PostalAddress ;
+    schema:streetAddress "789 Publisher Blvd" ;
+    schema:addressLocality "London" ;
+    schema:postalCode "EC1A 1BB" ;
+    schema:addressCountry "UK" .
+
+# Creative Works
+ex:work1 a schema:CreativeWork ;
+    schema:name "The Future of AI" ;
+    schema:description "A comprehensive analysis of artificial intelligence trends" ;
+    schema:datePublished "2022-05-10"^^xsd:date ;
+    schema:author ex:person1 ;
+    schema:publisher ex:org3 ;
+    schema:keywords "AI", "machine learning", "future tech" ;
+    schema:contentUrl "https://example.com/works/future-ai"^^xsd:anyURI ;
+    schema:license "https://creativecommons.org/licenses/by/4.0/"^^xsd:anyURI ;
+    schema:identifier "WORK-001" .
+
+ex:work2 a schema:CreativeWork ;
+    schema:name "Quantum Computing for Beginners" ;
+    schema:description "An introduction to quantum computing concepts" ;
+    schema:datePublished "2023-01-20"^^xsd:date ;
+    schema:author ex:person2, ex:person3 ;
+    schema:publisher ex:org3 ;
+    schema:keywords "quantum computing", "physics", "computing" ;
+    schema:contentUrl "https://example.com/works/quantum-beginners"^^xsd:anyURI ;
+    schema:license "https://creativecommons.org/licenses/by-nc/4.0/"^^xsd:anyURI ;
+    schema:identifier "WORK-002" .
+
+ex:work3 a schema:CreativeWork ;
+    schema:name "Annual Technology Report" ;
+    schema:description "Yearly analysis of technology trends and forecasts" ;
+    schema:datePublished "2023-03-15"^^xsd:date ;
+    schema:author ex:org2 ;
+    schema:publisher ex:org3 ;
+    schema:keywords "technology", "trends", "forecast", "annual report" ;
+    schema:contentUrl "https://example.com/works/tech-report-2023"^^xsd:anyURI ;
+    schema:license "https://creativecommons.org/licenses/by-sa/4.0/"^^xsd:anyURI ;
+    schema:identifier "WORK-003" .

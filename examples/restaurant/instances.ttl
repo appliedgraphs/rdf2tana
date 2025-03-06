@@ -1,0 +1,264 @@
+# Restaurant Instance Data
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ex: <http://example.org/> .
+
+# Restaurants
+ex:restaurant1 a schema:Restaurant ;
+    schema:name "The Rustic Spoon" ;
+    schema:description "A farm-to-table restaurant featuring locally sourced ingredients" ;
+    schema:servesCuisine "American", "Farm-to-table" ;
+    schema:priceRange "$$$" ;
+    schema:telephone "+1-555-123-4567" ;
+    schema:address ex:address1 ;
+    schema:openingHours "Mo-Fr 11:00-22:00", "Sa-Su 10:00-23:00" ;
+    schema:hasMenu ex:menu1 ;
+    schema:starRating "4.7"^^xsd:decimal ;
+    schema:acceptsReservations "true"^^xsd:boolean ;
+    ex:popularDishes ex:menuItem1, ex:menuItem3 .
+
+ex:restaurant2 a schema:Restaurant ;
+    schema:name "Sushi Sensation" ;
+    schema:description "Authentic Japanese sushi and sashimi in a modern setting" ;
+    schema:servesCuisine "Japanese", "Sushi" ;
+    schema:priceRange "$$$$" ;
+    schema:telephone "+1-555-987-6543" ;
+    schema:address ex:address2 ;
+    schema:openingHours "Tu-Su 17:00-23:00" ;
+    schema:hasMenu ex:menu2 ;
+    schema:starRating "4.9"^^xsd:decimal ;
+    schema:acceptsReservations "true"^^xsd:boolean ;
+    ex:popularDishes ex:menuItem5, ex:menuItem6 .
+
+ex:restaurant3 a schema:Restaurant ;
+    schema:name "Pasta Paradise" ;
+    schema:description "Family-owned Italian restaurant serving homemade pasta and traditional recipes" ;
+    schema:servesCuisine "Italian", "Mediterranean" ;
+    schema:priceRange "$$" ;
+    schema:telephone "+1-555-456-7890" ;
+    schema:address ex:address3 ;
+    schema:openingHours "Mo-Su 11:30-22:30" ;
+    schema:hasMenu ex:menu3 ;
+    schema:starRating "4.5"^^xsd:decimal ;
+    schema:acceptsReservations "true"^^xsd:boolean ;
+    ex:popularDishes ex:menuItem8, ex:menuItem10 .
+
+# Addresses
+ex:address1 a schema:PostalAddress ;
+    schema:streetAddress "123 Farm Lane" ;
+    schema:addressLocality "Greenville" ;
+    schema:addressRegion "CA" ;
+    schema:postalCode "95534" ;
+    schema:addressCountry "USA" .
+
+ex:address2 a schema:PostalAddress ;
+    schema:streetAddress "456 Ocean Drive" ;
+    schema:addressLocality "Harbor City" ;
+    schema:addressRegion "FL" ;
+    schema:postalCode "33101" ;
+    schema:addressCountry "USA" .
+
+ex:address3 a schema:PostalAddress ;
+    schema:streetAddress "789 Olive Avenue" ;
+    schema:addressLocality "Little Italy" ;
+    schema:addressRegion "NY" ;
+    schema:postalCode "10013" ;
+    schema:addressCountry "USA" .
+
+# Menus
+ex:menu1 a schema:Menu ;
+    schema:name "The Rustic Spoon Menu" ;
+    schema:description "Seasonal menu featuring farm-fresh ingredients" ;
+    schema:hasMenuSection ex:menuSection1, ex:menuSection2, ex:menuSection3 .
+
+ex:menu2 a schema:Menu ;
+    schema:name "Sushi Sensation Menu" ;
+    schema:description "Traditional and creative Japanese cuisine" ;
+    schema:hasMenuSection ex:menuSection4, ex:menuSection5 .
+
+ex:menu3 a schema:Menu ;
+    schema:name "Pasta Paradise Menu" ;
+    schema:description "Homemade pasta and Italian classics" ;
+    schema:hasMenuSection ex:menuSection6, ex:menuSection7, ex:menuSection8 .
+
+# Menu Sections
+ex:menuSection1 a schema:MenuSection ;
+    schema:name "Starters" ;
+    schema:description "Small plates to begin your meal" ;
+    schema:hasMenuItem ex:menuItem1, ex:menuItem2 .
+
+ex:menuSection2 a schema:MenuSection ;
+    schema:name "Main Courses" ;
+    schema:description "Hearty entrees featuring local meats and produce" ;
+    schema:hasMenuItem ex:menuItem3, ex:menuItem4 .
+
+ex:menuSection3 a schema:MenuSection ;
+    schema:name "Desserts" ;
+    schema:description "Sweet treats to end your meal" ;
+    schema:hasMenuItem ex:menuItem11 .
+
+ex:menuSection4 a schema:MenuSection ;
+    schema:name "Nigiri & Sashimi" ;
+    schema:description "Fresh fish over rice or on its own" ;
+    schema:hasMenuItem ex:menuItem5, ex:menuItem6 .
+
+ex:menuSection5 a schema:MenuSection ;
+    schema:name "Specialty Rolls" ;
+    schema:description "Creative maki rolls" ;
+    schema:hasMenuItem ex:menuItem7 .
+
+ex:menuSection6 a schema:MenuSection ;
+    schema:name "Antipasti" ;
+    schema:description "Italian appetizers" ;
+    schema:hasMenuItem ex:menuItem8, ex:menuItem9 .
+
+ex:menuSection7 a schema:MenuSection ;
+    schema:name "Pasta" ;
+    schema:description "Homemade pasta dishes" ;
+    schema:hasMenuItem ex:menuItem10 .
+
+ex:menuSection8 a schema:MenuSection ;
+    schema:name "Dolci" ;
+    schema:description "Italian desserts" ;
+    schema:hasMenuItem ex:menuItem12 .
+
+# Menu Items
+ex:menuItem1 a schema:MenuItem ;
+    schema:name "Farm Salad" ;
+    schema:description "Mixed greens with seasonal vegetables and house vinaigrette" ;
+    schema:price "12.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian", "Gluten-Free" ;
+    ex:ingredients "Mixed greens", "Seasonal vegetables", "House vinaigrette" ;
+    schema:nutrition ex:nutrition1 .
+
+ex:menuItem2 a schema:MenuItem ;
+    schema:name "Artisanal Cheese Plate" ;
+    schema:description "Selection of local cheeses with honey and crackers" ;
+    schema:price "18.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian" ;
+    ex:ingredients "Local cheeses", "Honey", "Artisanal crackers" .
+
+ex:menuItem3 a schema:MenuItem ;
+    schema:name "Grass-Fed Ribeye" ;
+    schema:description "12oz grass-fed ribeye with roasted potatoes and seasonal vegetables" ;
+    schema:price "38.00"^^xsd:decimal ;
+    schema:suitableForDiet "Gluten-Free" ;
+    ex:ingredients "Grass-fed beef", "Potatoes", "Seasonal vegetables", "Herb butter" ;
+    schema:nutrition ex:nutrition2 .
+
+ex:menuItem4 a schema:MenuItem ;
+    schema:name "Roasted Vegetable Risotto" ;
+    schema:description "Creamy arborio rice with seasonal roasted vegetables and parmesan" ;
+    schema:price "24.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian", "Gluten-Free" ;
+    ex:ingredients "Arborio rice", "Seasonal vegetables", "Parmesan cheese", "White wine" .
+
+ex:menuItem5 a schema:MenuItem ;
+    schema:name "Tuna Sashimi" ;
+    schema:description "Fresh bluefin tuna sashimi, 5 pieces" ;
+    schema:price "22.00"^^xsd:decimal ;
+    schema:suitableForDiet "Gluten-Free" ;
+    ex:ingredients "Bluefin tuna", "Wasabi", "Pickled ginger" ;
+    schema:nutrition ex:nutrition3 .
+
+ex:menuItem6 a schema:MenuItem ;
+    schema:name "Salmon Nigiri" ;
+    schema:description "Fresh salmon over sushi rice, 2 pieces" ;
+    schema:price "8.00"^^xsd:decimal ;
+    ex:ingredients "Salmon", "Sushi rice", "Wasabi" .
+
+ex:menuItem7 a schema:MenuItem ;
+    schema:name "Dragon Roll" ;
+    schema:description "California roll topped with avocado and eel sauce" ;
+    schema:price "18.00"^^xsd:decimal ;
+    ex:ingredients "Crab", "Cucumber", "Avocado", "Nori", "Eel sauce" .
+
+ex:menuItem8 a schema:MenuItem ;
+    schema:name "Bruschetta" ;
+    schema:description "Toasted bread topped with tomatoes, garlic, and basil" ;
+    schema:price "10.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian" ;
+    ex:ingredients "Bread", "Tomatoes", "Garlic", "Basil", "Olive oil" .
+
+ex:menuItem9 a schema:MenuItem ;
+    schema:name "Caprese Salad" ;
+    schema:description "Fresh mozzarella, tomatoes, and basil with balsamic glaze" ;
+    schema:price "14.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian", "Gluten-Free" ;
+    ex:ingredients "Mozzarella", "Tomatoes", "Basil", "Balsamic glaze", "Olive oil" .
+
+ex:menuItem10 a schema:MenuItem ;
+    schema:name "Fettuccine Alfredo" ;
+    schema:description "Homemade fettuccine in a creamy parmesan sauce" ;
+    schema:price "22.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian" ;
+    ex:ingredients "Homemade pasta", "Heavy cream", "Parmesan cheese", "Butter", "Garlic" ;
+    schema:nutrition ex:nutrition4 .
+
+ex:menuItem11 a schema:MenuItem ;
+    schema:name "Seasonal Fruit Crumble" ;
+    schema:description "Warm seasonal fruit crumble with vanilla ice cream" ;
+    schema:price "12.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian" ;
+    ex:ingredients "Seasonal fruit", "Oats", "Brown sugar", "Butter", "Vanilla ice cream" .
+
+ex:menuItem12 a schema:MenuItem ;
+    schema:name "Tiramisu" ;
+    schema:description "Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream" ;
+    schema:price "10.00"^^xsd:decimal ;
+    schema:suitableForDiet "Vegetarian" ;
+    ex:ingredients "Ladyfingers", "Mascarpone cheese", "Espresso", "Cocoa powder" .
+
+# Nutrition Information
+ex:nutrition1 a schema:NutritionInformation ;
+    schema:calories "200 calories" ;
+    schema:fatContent "12g" ;
+    schema:proteinContent "5g" ;
+    schema:carbohydrateContent "18g" .
+
+ex:nutrition2 a schema:NutritionInformation ;
+    schema:calories "850 calories" ;
+    schema:fatContent "45g" ;
+    schema:proteinContent "65g" ;
+    schema:carbohydrateContent "25g" .
+
+ex:nutrition3 a schema:NutritionInformation ;
+    schema:calories "180 calories" ;
+    schema:fatContent "6g" ;
+    schema:proteinContent "30g" ;
+    schema:carbohydrateContent "0g" .
+
+ex:nutrition4 a schema:NutritionInformation ;
+    schema:calories "720 calories" ;
+    schema:fatContent "42g" ;
+    schema:proteinContent "24g" ;
+    schema:carbohydrateContent "62g" .
+
+# Reservations
+ex:reservation1 a schema:FoodEstablishmentReservation ;
+    schema:reservationNumber "RSV-12345" ;
+    schema:reservationFor ex:restaurant1 ;
+    schema:reservationStatus "Confirmed" ;
+    schema:startTime "2023-07-15T19:30:00"^^xsd:dateTime ;
+    schema:partySize "4"^^xsd:integer ;
+    schema:underName "Smith" ;
+    schema:additionalNote "Window table preferred" .
+
+ex:reservation2 a schema:FoodEstablishmentReservation ;
+    schema:reservationNumber "RSV-67890" ;
+    schema:reservationFor ex:restaurant2 ;
+    schema:reservationStatus "Confirmed" ;
+    schema:startTime "2023-07-16T20:00:00"^^xsd:dateTime ;
+    schema:partySize "2"^^xsd:integer ;
+    schema:underName "Johnson" .
+
+ex:reservation3 a schema:FoodEstablishmentReservation ;
+    schema:reservationNumber "RSV-24680" ;
+    schema:reservationFor ex:restaurant3 ;
+    schema:reservationStatus "Pending" ;
+    schema:startTime "2023-07-18T18:00:00"^^xsd:dateTime ;
+    schema:partySize "6"^^xsd:integer ;
+    schema:underName "Garcia" ;
+    schema:additionalNote "Birthday celebration, possible cake" .

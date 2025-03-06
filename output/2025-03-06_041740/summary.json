@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-06T04:17:40.152Z",
+  "inputs": {
+    "shapesPath": "examples/people-org/shapes.ttl",
+    "dataPath": "examples/people-org/instances.ttl",
+    "shapesTriples": 247,
+    "dataTriples": 110
+  },
+  "outputs": {
+    "mainOutput": "/Users/akimball/dev/projects/tana/output/2025-03-06_041740/output.json",
+    "supertags": 4,
+    "nodes": 0
+  }
+}

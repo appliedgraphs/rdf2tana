@@ -1,0 +1,30 @@
+{
+  "version": "TanaIntermediateFile V0.1",
+  "summary": {
+    "leafNodes": 0,
+    "topLevelNodes": 0,
+    "totalNodes": 0,
+    "calendarNodes": 0,
+    "fields": 0,
+    "brokenRefs": 0
+  },
+  "nodes": [],
+  "supertags": [
+    {
+      "uid": "tana_f3c327a950",
+      "name": "person"
+    },
+    {
+      "uid": "tana_ad378b2ef1",
+      "name": "organization"
+    },
+    {
+      "uid": "tana_11df7c8654",
+      "name": "address"
+    },
+    {
+      "uid": "tana_9ba1ba0fdd",
+      "name": "creative-work"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-03-06T04:01:56.493Z",
+  "inputs": {
+    "shapesPath": "examples/restaurant/shapes.ttl",
+    "dataPath": null,
+    "shapesTriples": 315,
+    "dataTriples": 0
+  },
+  "outputs": {
+    "mainOutput": "/Users/akimball/dev/projects/tana/output/2025-03-06_040156/restaurant-schema.json",
+    "supertags": 7,
+    "nodes": 0
+  }
+}

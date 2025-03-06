@@ -1,0 +1,299 @@
+# SHACL Shapes Definition
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ex: <http://example.org/> .
+@prefix tana: <http://tana.inc/ns#> .
+
+# Using standard SHACL predicates instead of custom ones
+# sh:order - for display priority (replaces sh:order)
+# sh:deactivated - for hiding in UI (replaces sh:deactivated) 
+# sh:name - for display names (already being used)
+
+# Person Shape
+ex:PersonShape
+    a sh:NodeShape ;
+    sh:name "person" ;  # Explicit supertag name in lowercase
+    rdfs:label "Person" ;
+    rdfs:comment "A shape for representing people" ;
+    sh:targetClass schema:Person ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Name" ;
+        sh:description "The person's full name" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:givenName ;
+        sh:name "Given Name" ;
+        sh:description "The person's first name" ;
+        sh:datatype xsd:string ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:familyName ;
+        sh:name "Family Name" ;
+        sh:description "The person's last name" ;
+        sh:datatype xsd:string ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:email ;
+        sh:name "Email" ;
+        sh:description "The person's email address" ;
+        sh:datatype xsd:string ;
+        sh:pattern "^mailto:.+@.+\\..+$" ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:birthDate ;
+        sh:name "Birth Date" ;
+        sh:description "The person's date of birth" ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] ;
+    sh:property [
+        sh:path schema:affiliation ;
+        sh:name "Affiliation" ;
+        sh:description "Organizations this person is affiliated with" ;
+        sh:class schema:Organization ;
+        sh:nodeKind sh:IRI ;
+        sh:order 6 ;
+    ] ;
+    sh:property [
+        sh:path schema:worksFor ;
+        sh:name "Works For" ;
+        sh:description "The organization this person works for" ;
+        sh:class schema:Organization ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:order 7 ;
+    ] ;
+    sh:property [
+        sh:path ex:mainCreativeWork ;
+        sh:name "Main Creative Work" ;
+        sh:description "Primary creative work associated with this person" ;
+        sh:class schema:CreativeWork ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:order 8 ;
+    ] ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:name "Identifier" ;
+        sh:description "Unique identifier for this person" ;
+        sh:datatype xsd:string ;
+        sh:deactivated true ;
+        sh:order 99 ;
+    ] .
+
+# Organization Shape
+ex:OrganizationShape
+    a sh:NodeShape ;
+    sh:name "organization" ;  # Explicit supertag name in lowercase
+    rdfs:label "Organization" ;
+    rdfs:comment "A shape for representing organizations" ;
+    sh:targetClass schema:Organization ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Name" ;
+        sh:description "The organization's name" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "Description" ;
+        sh:description "A description of the organization" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:url ;
+        sh:name "Website" ;
+        sh:description "The organization's website" ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:foundingDate ;
+        sh:name "Founding Date" ;
+        sh:description "The date the organization was founded" ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:location ;
+        sh:name "Location" ;
+        sh:description "The organization's address" ;
+        sh:node ex:AddressShape ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] ;
+    sh:property [
+        sh:path schema:employee ;
+        sh:name "Employees" ;
+        sh:description "People who work for the organization" ;
+        sh:class schema:Person ;
+        sh:nodeKind sh:IRI ;
+        sh:order 6 ;
+    ] ;
+    sh:property [
+        sh:path schema:funder ;
+        sh:name "Funders" ;
+        sh:description "Organizations that fund this organization" ;
+        sh:class schema:Organization ;
+        sh:nodeKind sh:IRI ;
+        sh:order 7 ;
+    ] ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:name "Identifier" ;
+        sh:description "Unique identifier for this organization" ;
+        sh:datatype xsd:string ;
+        sh:deactivated true ;
+        sh:order 99 ;
+    ] .
+
+# Creative Work Shape
+ex:CreativeWorkShape
+    a sh:NodeShape ;
+    sh:name "creative-work" ;  # Explicit supertag name in lowercase with hyphen
+    rdfs:label "Creative Work" ;
+    rdfs:comment "A shape for representing creative works" ;
+    sh:targetClass schema:CreativeWork ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Title" ;
+        sh:description "The title of the work" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "Description" ;
+        sh:description "A description of the work" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:datePublished ;
+        sh:name "Date Published" ;
+        sh:description "The date the work was published" ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:author ;
+        sh:name "Authors" ;
+        sh:description "The authors of the work" ;
+        sh:or (
+            [ sh:class schema:Person ; sh:nodeKind sh:IRI ]
+            [ sh:class schema:Organization ; sh:nodeKind sh:IRI ]
+        ) ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:publisher ;
+        sh:name "Publisher" ;
+        sh:description "The publisher of the work" ;
+        sh:class schema:Organization ;
+        sh:nodeKind sh:IRI ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] ;
+    sh:property [
+        sh:path schema:keywords ;
+        sh:name "Keywords" ;
+        sh:description "Keywords describing the work" ;
+        sh:datatype xsd:string ;
+        sh:order 6 ;
+    ] ;
+    sh:property [
+        sh:path schema:contentUrl ;
+        sh:name "Content URL" ;
+        sh:description "URL to access the content" ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:order 7 ;
+    ] ;
+    sh:property [
+        sh:path schema:license ;
+        sh:name "License" ;
+        sh:description "License for the content" ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:order 8 ;
+    ] ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:name "Identifier" ;
+        sh:description "Unique identifier for this creative work" ;
+        sh:datatype xsd:string ;
+        sh:deactivated true ;
+        sh:order 99 ;
+    ] .
+
+# Address Shape (used by Organization)
+ex:AddressShape
+    a sh:NodeShape ;
+    sh:name "address" ;  # Explicit supertag name in lowercase
+    rdfs:label "Address" ;
+    rdfs:comment "A shape for representing postal addresses" ;
+    sh:targetClass schema:PostalAddress ;
+    sh:property [
+        sh:path schema:streetAddress ;
+        sh:name "Street Address" ;
+        sh:description "The street address" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:addressLocality ;
+        sh:name "City" ;
+        sh:description "The city or locality" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:addressRegion ;
+        sh:name "State/Province" ;
+        sh:description "The state or region" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:postalCode ;
+        sh:name "Postal Code" ;
+        sh:description "The postal or zip code" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:addressCountry ;
+        sh:name "Country" ;
+        sh:description "The country" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] .
+

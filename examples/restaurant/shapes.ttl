@@ -1,0 +1,388 @@
+# SHACL Shapes Definition for Restaurants
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ex: <http://example.org/> .
+@prefix tana: <http://tana.inc/ns#> .
+
+# Using standard SHACL predicates instead of custom ones
+# sh:order - for display priority (replaces sh:order)
+# sh:deactivated - for hiding in UI (replaces sh:deactivated) 
+# sh:name - for display names (already being used)
+
+# Restaurant Shape
+ex:RestaurantShape
+    a sh:NodeShape ;
+    sh:name "restaurant" ;  # Explicit supertag name in lowercase
+    rdfs:label "Restaurant" ;
+    rdfs:comment "A shape for representing restaurants" ;
+    sh:targetClass schema:Restaurant ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Name" ;
+        sh:description "The name of the restaurant" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "Description" ;
+        sh:description "A description of the restaurant" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:servesCuisine ;
+        sh:name "Cuisine" ;
+        sh:description "The cuisine of the restaurant" ;
+        sh:datatype xsd:string ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:priceRange ;
+        sh:name "Price Range" ;
+        sh:description "The price range of the restaurant ($, $$, $$$, etc.)" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:telephone ;
+        sh:name "Telephone" ;
+        sh:description "The telephone number of the restaurant" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] ;
+    sh:property [
+        sh:path schema:address ;
+        sh:name "Address" ;
+        sh:description "The physical address of the restaurant" ;
+        sh:node ex:AddressShape ;
+        sh:maxCount 1 ;
+        sh:order 6 ;
+    ] ;
+    sh:property [
+        sh:path schema:openingHours ;
+        sh:name "Opening Hours" ;
+        sh:description "The opening hours of the restaurant" ;
+        sh:datatype xsd:string ;
+        sh:order 7 ;
+    ] ;
+    sh:property [
+        sh:path schema:hasMenu ;
+        sh:name "Menu" ;
+        sh:description "The menu of the restaurant" ;
+        sh:node ex:MenuShape ;
+        sh:maxCount 1 ;
+        sh:order 8 ;
+    ] ;
+    sh:property [
+        sh:path schema:starRating ;
+        sh:name "Star Rating" ;
+        sh:description "The star rating of the restaurant" ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+        sh:maxCount 1 ;
+        sh:order 9 ;
+    ] ;
+    sh:property [
+        sh:path schema:acceptsReservations ;
+        sh:name "Accepts Reservations" ;
+        sh:description "Whether the restaurant accepts reservations" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:order 10 ;
+    ] ;
+    sh:property [
+        sh:path ex:popularDishes ;
+        sh:name "Popular Dishes" ;
+        sh:description "Popular dishes at this restaurant" ;
+        sh:node ex:MenuItemShape ;
+        sh:order 11 ;
+    ] .
+
+# Menu Shape
+ex:MenuShape
+    a sh:NodeShape ;
+    sh:name "menu" ;  # Explicit supertag name in lowercase
+    rdfs:label "Menu" ;
+    rdfs:comment "A shape for representing restaurant menus" ;
+    sh:targetClass schema:Menu ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Name" ;
+        sh:description "The name of the menu" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "Description" ;
+        sh:description "A description of the menu" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:hasMenuSection ;
+        sh:name "Menu Sections" ;
+        sh:description "The sections of the menu" ;
+        sh:node ex:MenuSectionShape ;
+        sh:order 3 ;
+    ] .
+
+# Menu Section Shape
+ex:MenuSectionShape
+    a sh:NodeShape ;
+    sh:name "menu-section" ;  # Explicit supertag name in lowercase with hyphen
+    rdfs:label "Menu Section" ;
+    rdfs:comment "A shape for representing menu sections" ;
+    sh:targetClass schema:MenuSection ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Name" ;
+        sh:description "The name of the menu section" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "Description" ;
+        sh:description "A description of the menu section" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:hasMenuItem ;
+        sh:name "Menu Items" ;
+        sh:description "The items in this menu section" ;
+        sh:node ex:MenuItemShape ;
+        sh:order 3 ;
+    ] .
+
+# Menu Item Shape
+ex:MenuItemShape
+    a sh:NodeShape ;
+    sh:name "menu-item" ;  # Explicit supertag name in lowercase with hyphen
+    rdfs:label "Menu Item" ;
+    rdfs:comment "A shape for representing menu items" ;
+    sh:targetClass schema:MenuItem ;
+    sh:property [
+        sh:path schema:name ;
+        sh:name "Name" ;
+        sh:description "The name of the menu item" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:description ;
+        sh:name "Description" ;
+        sh:description "A description of the menu item" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:price ;
+        sh:name "Price" ;
+        sh:description "The price of the menu item" ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:suitableForDiet ;
+        sh:name "Suitable For Diet" ;
+        sh:description "Dietary restrictions this item accommodates" ;
+        sh:datatype xsd:string ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path ex:ingredients ;
+        sh:name "Ingredients" ;
+        sh:description "Ingredients used in this menu item" ;
+        sh:datatype xsd:string ;
+        sh:order 5 ;
+    ] ;
+    sh:property [
+        sh:path schema:nutrition ;
+        sh:name "Nutrition Information" ;
+        sh:description "Nutritional information about this menu item" ;
+        sh:node ex:NutritionInfoShape ;
+        sh:maxCount 1 ;
+        sh:order 6 ;
+    ] .
+
+# Reservation Shape
+ex:ReservationShape
+    a sh:NodeShape ;
+    sh:name "reservation" ;  # Explicit supertag name in lowercase
+    rdfs:label "Reservation" ;
+    rdfs:comment "A shape for representing restaurant reservations" ;
+    sh:targetClass schema:FoodEstablishmentReservation ;
+    sh:property [
+        sh:path schema:reservationNumber ;
+        sh:name "Reservation Number" ;
+        sh:description "The confirmation number of the reservation" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:reservationFor ;
+        sh:name "Reservation For" ;
+        sh:description "The restaurant this reservation is for" ;
+        sh:class schema:Restaurant ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:reservationStatus ;
+        sh:name "Status" ;
+        sh:description "The status of the reservation" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:startTime ;
+        sh:name "Start Time" ;
+        sh:description "The start time of the reservation" ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:partySize ;
+        sh:name "Party Size" ;
+        sh:description "The number of people in the party" ;
+        sh:datatype xsd:integer ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] ;
+    sh:property [
+        sh:path schema:underName ;
+        sh:name "Under Name" ;
+        sh:description "The name the reservation is under" ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:order 6 ;
+    ] ;
+    sh:property [
+        sh:path schema:additionalNote ;
+        sh:name "Additional Notes" ;
+        sh:description "Additional notes for the reservation" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 7 ;
+    ] .
+
+# Address Shape
+ex:AddressShape
+    a sh:NodeShape ;
+    sh:name "address" ;  # Explicit supertag name in lowercase
+    rdfs:label "Address" ;
+    rdfs:comment "A shape for representing postal addresses" ;
+    sh:targetClass schema:PostalAddress ;
+    sh:property [
+        sh:path schema:streetAddress ;
+        sh:name "Street Address" ;
+        sh:description "The street address" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:addressLocality ;
+        sh:name "City" ;
+        sh:description "The city or locality" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:addressRegion ;
+        sh:name "State/Province" ;
+        sh:description "The state or region" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:postalCode ;
+        sh:name "Postal Code" ;
+        sh:description "The postal or zip code" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 4 ;
+    ] ;
+    sh:property [
+        sh:path schema:addressCountry ;
+        sh:name "Country" ;
+        sh:description "The country" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 5 ;
+    ] .
+
+# Nutrition Information Shape
+ex:NutritionInfoShape
+    a sh:NodeShape ;
+    sh:name "nutrition-info" ;  # Explicit supertag name in lowercase with hyphen
+    rdfs:label "Nutrition Information" ;
+    rdfs:comment "A shape for representing nutritional information" ;
+    sh:targetClass schema:NutritionInformation ;
+    sh:property [
+        sh:path schema:calories ;
+        sh:name "Calories" ;
+        sh:description "The number of calories" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 1 ;
+    ] ;
+    sh:property [
+        sh:path schema:fatContent ;
+        sh:name "Fat Content" ;
+        sh:description "The amount of fat" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 2 ;
+    ] ;
+    sh:property [
+        sh:path schema:proteinContent ;
+        sh:name "Protein Content" ;
+        sh:description "The amount of protein" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 3 ;
+    ] ;
+    sh:property [
+        sh:path schema:carbohydrateContent ;
+        sh:name "Carbohydrate Content" ;
+        sh:description "The amount of carbohydrates" ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:order 4 ;
+    ] .

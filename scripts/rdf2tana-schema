@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# rdf2tana-schema - Generate only the schema (supertags) from SHACL shapes
+# Usage: ./scripts/rdf2tana-schema <shapes_file> [output_file]
+
+set -e
+
+# Display usage information if not enough arguments
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <shapes_file> [output_file]"
+    echo ""
+    echo "Arguments:"
+    echo "  shapes_file   Path to the SHACL shapes file (required)"
+    echo "  output_file   Output file path (optional, defaults to tana-schema.json)"
+    echo ""
+    echo "Examples:"
+    echo "  $0 examples/people-org/shapes.ttl"
+    echo "  $0 examples/restaurant/shapes.ttl my-schema.json"
+    exit 1
+fi
+
+# Set variables from arguments
+SHAPES_FILE="$1"
+OUTPUT_FILE="${2:-tana-schema.json}"  # Default to tana-schema.json if not provided
+
+# Check if files exist
+if [ ! -f "$SHAPES_FILE" ]; then
+    echo "Error: Shapes file not found: $SHAPES_FILE"
+    exit 1
+fi
+
+# Display what we're doing
+echo "Generating Tana schema from SHACL shapes:"
+echo "  Shapes: $SHAPES_FILE"
+echo "  Output: $OUTPUT_FILE"
+echo ""
+
+# Run the transformer
+cd "$(dirname "$(dirname "$0")")"  # Move to project root
+npm run transform -- --shapes "$SHAPES_FILE" --schema-only --output "$OUTPUT_FILE"

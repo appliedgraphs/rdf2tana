@@ -1,0 +1,42 @@
+{
+  "version": "TanaIntermediateFile V0.1",
+  "summary": {
+    "leafNodes": 0,
+    "topLevelNodes": 0,
+    "totalNodes": 0,
+    "calendarNodes": 0,
+    "fields": 0,
+    "brokenRefs": 0
+  },
+  "nodes": [],
+  "supertags": [
+    {
+      "uid": "tana_42efcd7983",
+      "name": "restaurant"
+    },
+    {
+      "uid": "tana_11df7c8654",
+      "name": "address"
+    },
+    {
+      "uid": "tana_637bc7629f",
+      "name": "menu"
+    },
+    {
+      "uid": "tana_3b3d97a3f2",
+      "name": "menu-item"
+    },
+    {
+      "uid": "tana_4e56c9b14d",
+      "name": "menu-section"
+    },
+    {
+      "uid": "tana_dcae725681",
+      "name": "nutrition-info"
+    },
+    {
+      "uid": "tana_c34ae33d81",
+      "name": "reservation"
+    }
+  ]
+}
